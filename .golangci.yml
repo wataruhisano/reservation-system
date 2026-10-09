@@ -1,0 +1,8 @@
+version: "2"
+
+linters:
+  # Default linters (errcheck, govet, ineffassign, staticcheck, unused) plus:
+  enable:
+    - bodyclose # HTTP response body not closed
+    - errorlint # error comparison/wrapping that breaks with wrapped errors
+    - gosec # common security issues
