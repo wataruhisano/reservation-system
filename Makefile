@@ -1,4 +1,4 @@
-.PHONY: fmt fmt-check vet lint test test-race run check
+.PHONY: fmt fmt-check vet lint test test-race run check docker-build docker-run
 
 # Format all Go files in place.
 fmt:
@@ -28,5 +28,13 @@ test-race:
 run:
 	go run ./cmd/api
 
-# Run every check that CI runs.
+# Run every Go check that CI runs (CI additionally runs docker-build).
 check: fmt-check vet lint test test-race
+
+IMAGE ?= reservation-system-api:dev
+
+docker-build:
+	docker build -t $(IMAGE) .
+
+docker-run:
+	docker run --rm -p 8080:8080 $(IMAGE)
